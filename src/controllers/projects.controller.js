@@ -37,7 +37,14 @@ const updateProject = async (req, res) => {
 };
 
 const deleteProject = async (req, res) => {
-  res.send(`Deleting project with ID: ${req.params.id}`);
+  try {
+    await Project.destroy({
+      where: { id: req.params.id },
+    });
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export {
