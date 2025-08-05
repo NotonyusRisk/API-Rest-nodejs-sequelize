@@ -23,16 +23,21 @@ const createProject = async (req, res) => {
   }
 };
 
+const getProjectById = async (req, res) => {
+  try {
+    const project = await Project.findByPk(req.params.id);
+    res.json(project);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const updateProject = async (req, res) => {
   res.send(`Updating project with ID: ${req.params.id}`);
 };
 
 const deleteProject = async (req, res) => {
   res.send(`Deleting project with ID: ${req.params.id}`);
-};
-
-const getProjectById = async (req, res) => {
-  res.send(`Getting project with ID: ${req.params.id}`);
 };
 
 export {
