@@ -1,9 +1,26 @@
+import { Project } from "../models/Project.js";
+
 const getProjects = async (req, res) => {
-  res.send("Getting all projects");
+  try {
+    const projects = await Project.findAll();
+    res.json(projects);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 const createProject = async (req, res) => {
-  res.send("Creating a new project");
+  const { name, priority, description } = req.body;
+  try {
+    const newProject = await Project.create({
+      name,
+      priority,
+      description,
+    });
+    res.status(201).json(newProject);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 const updateProject = async (req, res) => {
